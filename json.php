@@ -57,14 +57,14 @@ function get_blood(){
 	//$data=json_decode(get_web_page("http://localhost/freedom/feeds.js"),true);
 	$movies=array();
 	foreach($data["entries"] as $m){
-		$content=preg_replace(array('/<br \/>/','/<.+?>/'),array("\n",''),$m["content"]); //*/
+		$content=strtoupper(preg_replace(array('/<br \/>/','/<.+?>/'),array("\n",''),$m["content"])); //*/
 		$content=explode("\n",$content);
 		$content=array_filter($content,function($v){
 			return trim($v) && !preg_match("/\(.+?\).+?\(.+?\)/",$v);
 		});
 		$ret=array();
 		foreach($content as $c){
-			if(preg_match("/GRP.+?(AB|A|B|O).+(GOOD|LOW|VERY LOW)/",$c,$matches)){
+			if(preg_match("/GRP.+?(AB|A|B|O).+(GOOD|LOW|VERY LOW|OK)/",$c,$matches)){
 				$ret[]=array("type"=>$matches[1],"status"=>$matches[2]);
 			}
 		}
