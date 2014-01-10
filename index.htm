@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<title>RIPAS Blood Bank status</title>
+<script src="jx.js"></script>
+<style>
+.verylow {color:#F00;}
+.low {color:#A00;}
+.ok {color:#0A0;}
+</style>
+<script>
+function make_post(o){
+	var div=document.createElement('tr')
+	div.className=o.status.replace(' ','').toLowerCase()
+	div.innerHTML+="<td>"+o.type+"</td><td>: "+o.status+"</td>"
+	return div
+}
+window.onload=function(){
+	jx("json.php",function(o){
+		var content=document.getElementById("content")
+		for(var i=0;i<o.length;i++){
+			content.appendChild(make_post(o[i]))
+		}
+		console.log(o);
+	},true);
+}
+</script>
+</head>
+<body>
+<h1>Ripas Bloodbank Status</h1>
+<table id="content">
+
+</table>
+</body>
+</html>
