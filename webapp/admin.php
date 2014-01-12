@@ -2,6 +2,7 @@
 
 require_once("DB.php");
 DB::setup("blood","root","");
+DB::debug();
 $temp_data=json_decode(file_get_contents("blood_types.json"));
 
 $status_level=array("N/A","very low","low","ok");
@@ -22,11 +23,25 @@ if(@$_POST["action"]=="update_blood"){
 }
 
 
+function get_latest($bank_id){
+	$temp=DB::fetchAll("SELECT * FROM bloods where bank_id=? GROUP BY TYPE , bank_id ORDER BY TIME DESC",$bank_id);
+	$return=array();
+	foreach($temp as $blood){
+		
+	}
+}
+
+
+
 
 
 ?>
 <pre>
+$_POST:
 <?php print_r($_POST); ?>
+
+DB data:
+<?php print_r($latest); ?>
 </pre>
 
 
