@@ -1,6 +1,7 @@
 <?php
 
 require_once("DB.php");
+require_once("config.php");
 DB::setup(DB_NAME, DB_USER, DB_PASS, DB_HOST);
 DB::debug();
 $temp_data=json_decode(file_get_contents("blood_types.json"));
@@ -27,11 +28,12 @@ function get_latest($bank_id){
 	$temp=DB::fetchAll("SELECT * FROM bloods where bank_id=? GROUP BY TYPE , bank_id ORDER BY TIME DESC",$bank_id);
 	$return=array();
 	foreach($temp as $blood){
-		$return[$blood["id"]]=$blood;
+		$return[$blood["type"]]=$blood;
 	}
 	return $return;
 }
 
+$latest=get_latest(1);
 
 
 
@@ -57,7 +59,7 @@ DB data:
 <label><?=$type;?></label>
 <select name="status_<?=$type;?>">
 <?php foreach($status_level as $i=>$n): ?>
-<option value="<?=$i;?>"><?=$n;?></option>
+<option <?=($i==$latest[$type]["status"]) ? "selected" : "" ; ?> value="<?=$i;?>"><?=$n;?></option>
 <?php endforeach; ?>
 </select><br/>
 <?php endforeach; ?>
