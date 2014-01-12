@@ -45,7 +45,7 @@ class DB{
 
 	static function insert($table,$values){ //table name and associative array of values.
 		if(!$table || !is_array($values) || empty($values))
-			return ["error"=>"error parameters"];
+			return array("error"=>"error parameters");
 		$keys= implode(',',array_keys($values));
 		$place=implode(',',array_fill(0,count($values),'?'));
 		$sql="insert into $table($keys) values($place)"; //madness
