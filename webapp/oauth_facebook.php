@@ -5,8 +5,8 @@
  */
 
 //Facebook SDK taken from https://github.com/facebook/facebook-php-sdk
-require( './facebook/facebook.php' );
-require( '../config.php' );
+require( './libs/facebook/facebook.php' );
+require( 'config.php' );
 
 
 //Sample below taken from https://developers.facebook.com/docs/php/howto/postwithgraphapi/

@@ -5,9 +5,9 @@
  */
 
 //Facebook SDK taken from https://github.com/facebook/facebook-php-sdk
-require './libs/facebook/facebook.php';
+require( './libs/facebook/facebook.php' );
+require( 'config.php' );
 
-require('config.php');
 
 //Sample below taken from https://developers.facebook.com/docs/php/howto/postwithgraphapi/
 //App Config for https://www.facebook.com/BGM.Blood.Bank
@@ -28,16 +28,6 @@ $page_id = @$_GET['page_id'];
 <body>
 
 <?php
-if(!is_numeric($page_id)){
-	?>
-	Specify Facebook page ID
-	<form name="form_message" method="GET" action="<?php echo $_SERVER['PHP_SELF'] ."?". $_SERVER['QUERY_STRING'] ?>">
-		<label for="page_id">Message:</label>
-		<input name="page_id"/>
-		<input type="submit" value="post" />
-	</form>
-	<?php
-}
 if($user_id && is_numeric($page_id)) {
 
 	// We have a user ID, so probably a logged in user.
@@ -79,12 +69,13 @@ if($user_id && is_numeric($page_id)) {
 		<?php
 
 	} catch(FacebookApiException $e) {
-		echo 'Please <a href=' . $_SERVER['PHP_SELF'] . "?". $_SERVER['QUERY_STRING'] . '>login again.</a>';
+		echo 'Please <a href="./oauth_facebook.php">login again.</a>';
 		error_log($e->getType());
 		error_log($e->getMessage());
 	}
 } else {
-	echo 'Please <a href=' . $_SERVER['PHP_SELF'] . "?". $_SERVER['QUERY_STRING'] . '>login again.</a>';
+
+	echo 'Please <a href="./oauth_facebook.php">login again.</a>';
 
 }
 
