@@ -1,7 +1,8 @@
 <?php
 
+require_once("config.php");
 require_once("DB.php");
-DB::setup("blood","root","");
+DB::setup(DB_NAME,DB_USER,DB_PASS,DB_HOST);
 $blood_type=json_decode(file_get_contents("blood_types.json"));
 
 function get_compatible($o){
