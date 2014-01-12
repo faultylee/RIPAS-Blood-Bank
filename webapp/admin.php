@@ -27,8 +27,9 @@ function get_latest($bank_id){
 	$temp=DB::fetchAll("SELECT * FROM bloods where bank_id=? GROUP BY TYPE , bank_id ORDER BY TIME DESC",$bank_id);
 	$return=array();
 	foreach($temp as $blood){
-		
+		$return[$blood["id"]]=$blood;
 	}
+	return $return;
 }
 
 
