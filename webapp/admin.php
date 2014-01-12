@@ -1,7 +1,7 @@
 <?php
 
 require_once("DB.php");
-DB::setup("blood","root","");
+DB::setup(DB_NAME, DB_USER, DB_PASS, DB_HOST);
 DB::debug();
 $temp_data=json_decode(file_get_contents("blood_types.json"));
 
