@@ -25,7 +25,7 @@ if(@$_POST["action"]=="update_blood"){
 
 
 function get_latest($bank_id){
-	$temp=DB::fetchAll("SELECT * FROM bloods where bank_id=? GROUP BY TYPE , bank_id ORDER BY TIME DESC",$bank_id);
+	$temp=DB::fetchAll("select * from (SELECT * FROM bloods where bank_id=? order by time desc) b  GROUP BY TYPE , bank_id;",$bank_id);
 	$return=array();
 	foreach($temp as $blood){
 		$return[$blood["type"]]=$blood;
