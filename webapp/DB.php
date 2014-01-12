@@ -50,13 +50,13 @@ class DB{
 		$place=implode(',',array_fill(0,count($values),'?'));
 		$sql="insert into $table($keys) values($place)"; //madness
 		self::query($sql,array_values($values));
-		return ["id"=>self::lastId()];
+		return array("id"=>self::lastId());
 	}
 	static function update($table,$where,$values){ //limited to ands and =s?
 		if(!$table || !is_array($values) || empty($values) || empty($where))
-			return ["error"=>"error parameters"];
+			return array("error"=>"error parameters");
 		if(!is_array($where))
-			$where=["id"=>$where]; //not sure want to put
+			$where=array("id"=>$where); //not sure want to put
 		$valuesKeys=array_reduce(array_keys($values),function($v,$w){
 
 			if(substr($w,-1)==="="){
