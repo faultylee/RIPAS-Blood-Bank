@@ -6,19 +6,21 @@
 
 //Facebook SDK taken from https://github.com/facebook/facebook-php-sdk
 require( './facebook/facebook.php' );
+require( '../config.php' );
 
 
 //Sample below taken from https://developers.facebook.com/docs/php/howto/postwithgraphapi/
 //App Config for https://www.facebook.com/BGM.Blood.Bank
 $config = array(
-	'appId' => '702505256461179',
-	'secret' => '97afaa1bb812b63489ab733b10d1c66b',
+	'appId' => FB_APP_ID,
+	'secret' => FB_APP_SECRET,
 	'fileUpload' => false, // optional
 	'allowSignedRequest' => false, // optional, but should be set to false for non-canvas apps
 );
 
 $facebook = new Facebook($config);
 $user_id = $facebook->getUser();
+
 ?>
 
 <html>
