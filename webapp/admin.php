@@ -15,15 +15,6 @@ foreach($temp_data as $b){
 
 $bank_id=1;
 
-if(@$_POST["action"]=="update_blood"){
-	foreach($blood_type as $type=>$data){
-		$status=@$_POST["status_".$type];
-		if($status)
-			DB::query("insert into bloods(bank_id,type,status) values(?,?,?)",array($bank_id,$type,$status));
-	}
-}
-
-
 function get_latest($bank_id){
 	$temp=DB::fetchAll("select * from (SELECT * FROM bloods where bank_id=? order by time desc) b  GROUP BY TYPE , bank_id;",$bank_id);
 	$return=array();
@@ -34,11 +25,27 @@ function get_latest($bank_id){
 }
 
 $latest=get_latest(1);
+if(@$_POST["action"]=="update_blood"){
+	foreach($blood_type as $type=>$data){
+		$status=@$_POST["status_".$type];
+		if($status){
+			if($latest[$type]["status"]!=$status){
+				DB::query("insert into bloods(bank_id,type,status) values(?,?,?)",array($bank_id,$type,$status));
+				$latest[$type]["status"]=$status;
+			}
+		}
+	}
+}
+
+
+
 
 
 
 
 ?>
+
+<?php if(@$_GET["print"]): ?>
 <pre>
 $_POST:
 <?php print_r($_POST); ?>
@@ -46,6 +53,7 @@ $_POST:
 DB data:
 <?php print_r($latest); ?>
 </pre>
+<?php endif; ?>
 
 
 <style>
