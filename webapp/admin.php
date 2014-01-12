@@ -8,11 +8,13 @@ function get_compatible($o){
 	global $blood_type;
 	foreach($blood_type as $b){
 		if($b[0]==$o)
-			break $b;
+			break;
 	}
+	print_r($b);
 }
 
-print_r($blood_type);
+
+print_r(get_compatible("A+"));
 
 
 ?>
